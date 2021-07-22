@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {ProductProps} from "./Product.props";
 import cn from "classnames";
 import style from './Product.module.css'
@@ -16,8 +16,18 @@ const Product = ({ product, className, ...props}: ProductProps): JSX.Element => 
 
   const [isReviewOpened, setIsReviewOpened] = useState<boolean>(false)
 
+  const reviewRef = useRef<HTMLDivElement>(null)
+
+  const scrollToReview = () => {
+    setIsReviewOpened(true)
+    reviewRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
+
   return (
-    <>
+    <div className={className} {...props}>
       <Card className={style.product}>
         <div className={style.logo}>
           <Image
@@ -49,7 +59,13 @@ const Product = ({ product, className, ...props}: ProductProps): JSX.Element => 
         </div>
         <div className={style.priceTitle}>цена</div>
         <div className={style.creditTitle}>кредит</div>
-        <div className={style.rateTitle}>{product.reviewCount} {declOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}</div>
+        <div className={style.rateTitle}>
+          <a
+            onClick={scrollToReview}
+            href="#ref">
+            {product.reviewCount} {declOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}
+          </a>
+        </div>
         <Divider className={style.hr}/>
         <div className={style.description}>{product.description}</div>
         <div className={style.feature}>
@@ -90,10 +106,13 @@ const Product = ({ product, className, ...props}: ProductProps): JSX.Element => 
             arrow={isReviewOpened ? "down" : "right"}>Читать отзывы</Button>
         </div>
       </Card>
-      <Card color="blue" className={cn(style.reviews, {
-        [style.opened]: isReviewOpened,
-        [style.closed]: !isReviewOpened
-      })}>
+      <Card
+        color="blue"
+        className={cn(style.reviews, {
+          [style.opened]: isReviewOpened,
+          [style.closed]: !isReviewOpened
+        })}
+        ref={reviewRef}>
         {product.reviews && product.reviews.map((review) => {
           return (
             <div key={review._id}>
@@ -104,8 +123,7 @@ const Product = ({ product, className, ...props}: ProductProps): JSX.Element => 
         })}
         <ReviewForm productId={product._id}/>
       </Card>
-    </>
-
+    </div>
   )
 }
 

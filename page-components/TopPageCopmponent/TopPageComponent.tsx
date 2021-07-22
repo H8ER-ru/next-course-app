@@ -1,4 +1,4 @@
-import React, {useReducer} from "react";
+import React, {useEffect, useReducer} from "react";
 import {TopPageComponentProps} from "./TopPageComponent.props";
 import style from './TopPageComponent.module.css'
 import Htag from "../../components/Htag/Htag";
@@ -18,6 +18,10 @@ export const TopPageComponent = ({page, products, firstCategory} : TopPageCompon
   const setSort = (sort: SortEnum) => {
     dispatchSort({type: sort})
   }
+
+  useEffect(() => {
+    dispatchSort({type: "reset", initialState: products})
+  }, [products])
 
   return (
     <div className={style.wrapper}>
