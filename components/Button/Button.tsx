@@ -2,7 +2,6 @@ import React from 'react'
 import {ButtonProps} from "./Button.props"
 import style from './Button.module.css'
 import ArrowIcon from './arrow.svg'
-// @ts-ignore
 import cn from 'classnames'
 
 const Button = ({appearance, arrow = 'none', children, className, ...props}: ButtonProps) : JSX.Element => {

@@ -36,14 +36,14 @@
 	color: var(--white);
 	background: #B3C0D9;
 
-	font-weight: bold;
+	font-weight: 500;
 }
 
 .green {
 	color: var(--green);
 	background: var(--green-light);
 
-	font-weight: bold;
+	font-weight: 500;
 }
 
 .primary {
@@ -51,5 +51,5 @@
 	border: 1px solid var(--primary);
 	background: none;
 
-	font-weight: bold;
+	font-weight: 500;
 }
