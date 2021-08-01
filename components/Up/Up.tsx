@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import style from './Up.module.css'
-import UpIcon from './Up.svg'
 import {useScrollY} from "../../hook/useScroll";
 import {useAnimation} from "framer-motion";
 import {motion} from "framer-motion";
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 
 const Up = (): JSX.Element => {
 
@@ -22,13 +22,15 @@ const Up = (): JSX.Element => {
   }
 
   return (
-    <motion.button
+    <motion.div
       initial={{opacity: 0}}
       animate={control}
-      onClick={scrollToTop}
       className={style.up}>
-      <UpIcon/>
-    </motion.button>
+      <ButtonIcon
+        onClick={scrollToTop}
+        appearance='primary'
+        icon='up'/>
+    </motion.div>
   );
 };
 
